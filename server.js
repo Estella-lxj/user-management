@@ -1,21 +1,32 @@
+//Import express framework
 const express = require("express");
+
+//Configure enviroument variables
 const dotenv = require('dotenv').config()
+
+//Create application objects
+const app = express();
+
+//System middleware
+app.use(express.json()); //Used body to JSON 
+app.use(express.urlencoded({ extended: true })) //Parse URL to JSON
+
+//Third party middlewares
+const cors = require('cors')
+app.use(cors());
+
+//Model holds data
 require('./models/db');
 
-const app = express();
-const path = require('path');
-const bodyparser = require('body-parser')
-app.use(express.json());
+//Customized middleware: controller/router handler
 
-const userController = require('./controllers/userController');
+//Import a defined router object
+const userRouter = require('./controllers/userRouter');
 
+//Use a defined router
+app.use('/api/user', userRouter);
 
-app.use('/user', userController);
-
-app.use((req, res) => {
-    res.send("404");
-});
-
+//Define port and create server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log('Server started on port ' + PORT);

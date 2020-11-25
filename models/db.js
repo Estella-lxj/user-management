@@ -1,18 +1,19 @@
-// const MongoClient = require('mongodb').MongoClient;
-// const url = "mongodb+srv://estella:estelladb@usermanagement.sg1zo.mongodb.net/<dbname>?retryWrites=true&w=majority";
-// require('./user.model');
 
-// MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-//     if (err) throw err;
-//     else console.log("Database created!");
-//     // db.close();
-// });
+//Import defined schema
+require('./userSchema');
 
-const url = process.env.MONGODB_URI;
-require('./user.model');
+//Configure database identifier
+const uri = process.env.MONGODB_URI;
+
+//Import MongoDB modeling tool
 const mongoose = require('mongoose');
-mongoose.connect(url, { useNewUrlParser: true }, (err) => {
-    if (err) console.log(err);
-    else console.log('DB connected!')
-})
+
+//Connect database through user request identifier
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+//Create connection and error handling
+let db = mongoose.connection;
+db.on('error', err => console.log(err));
+db.on('open', () => console.log('database connected'));
+db.on('close', () => console.log('database disconnected'));
 
