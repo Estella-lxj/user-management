@@ -18,12 +18,9 @@ const userSchema = new Schema({
     age: {
         type: Number
     },
-    title: {
+    password: {
         type: String
     },
-    date: {
-        type: Date
-    }
 })
 
 //Export defined schema

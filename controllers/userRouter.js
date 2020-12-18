@@ -1,5 +1,6 @@
 
 //Import express framework
+// const { parse } = require('dotenv/types');
 const express = require('express');
 
 //Create router object by system middleware to implement routes
@@ -11,21 +12,21 @@ const mongoose = require('mongoose');
 //Import defined schema
 const User = require('./../models/userSchema');
 
+//Import pagination middleware
+const pagination = require('./pagination');
+
 //Set response for api/user get request
 router.get('/', (req, res) => {
-    res.json({ message: 'Welcome!' });
+    res.status(200).json({ message: 'Welcome!' });
 });
 
 //Get all records
-router.get('/users', (req, res) => {
-    User.find((err, users) => {
-        if (err) res.status(500).send(err);
-        res.status(200).json(users);
-    });
+router.get('/users/:page/:limit/', pagination(User), (req, res) => {
+    res.status(200).json(res.paginationResults)
 });
 
 //Get one record by id
-router.get('/users/:user_id', (req, res) => {
+router.get('/user/:user_id', (req, res) => {
     User.findById(req.params.user_id, (err, user) => {
         if (err) res.status(500).send(err);
         res.status(200).json(user);
@@ -39,8 +40,9 @@ router.post('/users', (req, res) => {
 });
 
 //Delete a record
-router.get('/delete/:user_id', (req, res) => {
-    User.findOneAndRemove(req.params.user_id, (err, user) => {
+router.delete('/user/:user_id', (req, res) => {
+    User.findOneAndRemove({ _id: req.params.user_id }, (err, user) => {
+        console.log(req.params.user_id)
         if (err) res.status(500).send(err);
         res.status(200).json({ message: 'User deleted!' });
     });
@@ -48,13 +50,13 @@ router.get('/delete/:user_id', (req, res) => {
 
 
 function insertRecord(req, res) {
+    console.log('insert!')
     let user = new User();
     user.firstName = req.body.firstName;
     user.lastName = req.body.lastName;
     user.gender = req.body.gender;
     user.age = req.body.age;
-    user.title = req.body.title;
-    user.date = req.body.date;
+    user.password = req.body.password;
     user.save(err => {
         if (err) {
             res.status(500).send(err);
@@ -64,6 +66,7 @@ function insertRecord(req, res) {
 }
 
 function updateRecord(req, res) {
+    console.log('update!')
     User.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
         if (err) {
             res.status(500).send(err);
@@ -71,6 +74,7 @@ function updateRecord(req, res) {
         res.status(200).json({ message: 'User updated!' });
     });
 }
+
 
 
 module.exports = router;

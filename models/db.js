@@ -9,7 +9,7 @@ const uri = process.env.MONGODB_URI;
 const mongoose = require('mongoose');
 
 //Connect database through user request identifier
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 //Create connection and error handling
 let db = mongoose.connection;

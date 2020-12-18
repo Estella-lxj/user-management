@@ -24,7 +24,7 @@ require('./models/db');
 const userRouter = require('./controllers/userRouter');
 
 //Use a defined router
-app.use('/api/user', userRouter);
+app.use('/api/usermanagement', userRouter);
 
 //Define port and create server
 const PORT = process.env.PORT || 4000;
