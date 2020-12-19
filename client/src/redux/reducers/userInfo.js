@@ -1,24 +1,31 @@
 const initialState = {
-    _id: '', firstName: '', lastName: '',
-    age: '', gender: '', password: '',
-};
+    isFetching: false,
+    error: null,
+    data: {},
+}
 
 const userInfo = (state = initialState, action) => {
     switch (action.type) {
-        case ('SET_USER_INFO'):
+        case ('FETCH_USER_INFO_START'):
             return {
                 ...state,
-                _id: action._id,
-                firstName: action.firstName,
-                lastName: action.lastName,
-                age: action.age,
-                gender: action.gender,
-                password: action.password,
+                isFetching: true,
+            };
+        case ('FETCH_USER_INFO_FAIL'):
+            return {
+                ...state,
+                isFetching: false,
+                error: action.error,
+            }
+        case ('FETCH_USER_INFO_SUCCESS'):
+            return {
+                ...state,
+                isFetching: false,
+                error: null,
+                data: action.payload,
             }
         default:
-            return {
-                ...initialState,
-            }
+            return state;
     }
 }
 

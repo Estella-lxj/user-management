@@ -6,15 +6,17 @@ import keyword from './keyword';
 import order from './order';
 import postStatus from './postStatus';
 import deleteStatus from './deleteStatus';
+import { reducer as formReducer } from 'redux-form';
 
 const reducers = combineReducers({
     users,
     page,
-    userInfo,
     keyword,
     order,
+    userInfo,
     postStatus,
     deleteStatus,
+    form: formReducer,
 });
 
 export default reducers;

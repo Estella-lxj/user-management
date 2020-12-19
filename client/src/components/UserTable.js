@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import TableRow from './TableRow';
 import { withRouter } from 'react-router-dom';
 
-const UserTable = ({ users, page, getUsers, deleteUser,
-    keyword, order, setOrder, deleteStatus }) => {
+const UserTable = props => {
+
+    const { users, getUsers, page, keyword, order, setOrder, deleteUser } = props;
 
     useEffect((() => {
         getUsers(page, keyword, order);
@@ -11,10 +12,6 @@ const UserTable = ({ users, page, getUsers, deleteUser,
 
     return (
         <div>
-            {users.isFetching ? <div>Loading...</div> : null}
-            {users.error ? <div>Error: {users.error.message}</div> : null}
-            {deleteStatus.isDeleting ? <div>Deleting...</div> : null}
-            {deleteStatus.error ? <div>{deleteStatus.error.message}</div> : null}
             <table>
                 <thead>
                     <tr>
@@ -44,15 +41,11 @@ const UserTable = ({ users, page, getUsers, deleteUser,
                     </tr>
                 </thead>
                 <tbody>
-                    {users.data.map(({ _id, firstName, lastName, gender, age }) => {
+                    {users.data.map(item => {
                         return (
                             <TableRow
-                                key={_id}
-                                id={_id}
-                                firstName={firstName}
-                                lastName={lastName}
-                                gender={gender}
-                                age={age}
+                                key={item._id}
+                                item={item}
                                 deleteUser={deleteUser}
                                 getUsers={getUsers}
                                 page={page}

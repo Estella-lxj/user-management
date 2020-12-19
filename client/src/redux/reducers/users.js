@@ -24,9 +24,9 @@ const users = (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 error: null,
-                data: action.data,
-                prev: action.prev,
-                next: action.next,
+                data: action.payload.data,
+                prev: action.payload.prev,
+                next: action.payload.next,
             }
         default:
             return state;
