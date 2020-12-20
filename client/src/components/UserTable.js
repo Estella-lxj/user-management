@@ -1,41 +1,44 @@
 import { useEffect } from 'react';
 import TableRow from './TableRow';
 import { withRouter } from 'react-router-dom';
+import './UserTable.css';
+import { FaSort } from 'react-icons/fa';
+
 
 const UserTable = props => {
 
-    const { users, getUsers, page, keyword, order, setOrder, deleteUser } = props;
+    const { users, getUsers, page, limit, keyword, order, setOrder, deleteUser } = props;
 
     useEffect((() => {
-        getUsers(page, keyword, order);
-    }), [page, keyword, order])
+        getUsers(page, limit, keyword, order);
+    }), [page, limit, keyword, order])
 
     return (
-        <div>
-            <table>
+        <div className="table-container">
+            <table className="user-table">
                 <thead>
                     <tr>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th></th>
+                        <th></th>
                         <th>
                             <button
                                 onClick={() => setOrder('firstName')}>
-                                First Name</button>
+                                First Name <FaSort /></button>
                         </th>
                         <th>
                             <button
                                 onClick={() => setOrder('lastName')}>
-                                Last Name</button>
+                                Last Name <FaSort /></button>
                         </th>
                         <th>
                             <button
                                 onClick={() => setOrder('gender')}>
-                                Gender</button>
+                                Gender <FaSort /></button>
 
                         </th>
                         <th><button
                             onClick={() => setOrder('age')}>
-                            Age</button>
+                            Age <FaSort /></button>
 
                         </th>
                     </tr>
@@ -49,6 +52,7 @@ const UserTable = props => {
                                 deleteUser={deleteUser}
                                 getUsers={getUsers}
                                 page={page}
+                                limit={limit}
                                 keyword={keyword}
                                 order={order}
                             />
@@ -56,7 +60,6 @@ const UserTable = props => {
                     })}
                 </tbody>
             </table>
-
         </div>
     )
 }

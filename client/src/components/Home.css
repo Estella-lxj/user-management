@@ -1,0 +1,32 @@
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home-page-header {
+  margin: 2rem 0rem;
+  position: relative;
+}
+
+.home-page-header h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0rem 0rem;
+  font-weight: 300;
+}
+
+.home-page-header img {
+  position: absolute;
+  height: 2rem;
+  margin: 0rem 0rem;
+  padding: 0rem 0rem;
+  top: 0rem;
+  left: 60%;
+}
+
+.mark {
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: center;
+}

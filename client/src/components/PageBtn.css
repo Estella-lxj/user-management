@@ -1,0 +1,36 @@
+.page-btn-container {
+  margin: 0rem 3rem;
+  position: relative;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.entries-limit input {
+  background: none;
+  border: solid 1px #006c84;
+  border-radius: 0.5rem;
+  height: 1.5rem;
+  margin: 0rem 0.5em;
+  background-color: rgba(255, 255, 255, 0.315);
+}
+
+.page-btn-group {
+  position: absolute;
+  right: 0rem;
+  background-color: rgba(255, 255, 255, 0.315);
+  height: 2rem;
+  /* width: 2rem; */
+  border-radius: 0.5rem;
+  border: solid 1px #006c84;
+  cursor: pointer;
+}
+
+.page-btn-group button {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem 0.2rem;
+  cursor: pointer;
+}

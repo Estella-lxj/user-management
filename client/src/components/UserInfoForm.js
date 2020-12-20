@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import UserInfoField from './UserInfoField';
 import { connect } from 'react-redux';
 import { postUser, getUserInfo } from '../redux/action-creators'
+import './UserInfoForm.css';
 
 const UserEdit = props => {
     const { match, history, handleSubmit, pristine, reset, submitting,
@@ -18,52 +19,54 @@ const UserEdit = props => {
 
 
     return (
-        <form onSubmit={handleSubmit(submitForm)}>
-            <div>
-                {match.path === "/user/new"
-                    ? <span>Create New User</span>
-                    : <span>Edit User</span>}
-                <span>
-                    {userInfoStatus.isFetching ? <img style={{ height: "2rem" }} src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
-                    {userInfoStatus.error ? <span>Error: {userInfoStatus.error.message}</span> : undefined}
-                    {postStatus.isPosting ? <img style={{ height: "2rem" }} src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
-                    {postStatus.error ? <span>{postStatus.error.message}</span> : undefined}
-                </span>
-            </div>
-            <Field
-                name='firstName' label="First Name: "
-                component={UserInfoField} type="text"
-                validate={[required]}
-            />
-            <Field
-                name='lastName' label="Last Name: "
-                component={UserInfoField} type="text"
-                validate={[required]} />
-            <Field
-                name='gender' label="Gender: "
-                component={UserInfoField} type="text" />
-            <Field
-                name='age' label="Age: "
-                component={UserInfoField} type="number"
-                validate={[minValue1, maxValue200]}
-            />
-            <Field
-                name='password' label="Password: "
-                component={UserInfoField} type="password"
-                validate={[required, minLength3]} />
-            <Field
-                name='repeat' label="Repeat: "
-                component={UserInfoField} type="password"
-                validate={[passwordsMatch]} />
-
-            <button type="button" disabled={pristine || submitting}
-                onClick={reset}> Reset
+        <div className="form-container">
+            <form onSubmit={handleSubmit(submitForm)}>
+                <div className="form-header">
+                    {match.path === "/user/new"
+                        ? <h1>Create New User</h1>
+                        : <h1>Edit User</h1>}
+                    {userInfoStatus.isFetching ? <img src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
+                    {postStatus.isPosting ? <img src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
+                </div>
+                <Field
+                    name='firstName' label="First Name: "
+                    component={UserInfoField} type="text"
+                    validate={[required]}
+                />
+                <Field
+                    name='lastName' label="Last Name: "
+                    component={UserInfoField} type="text"
+                    validate={[required]} />
+                <Field
+                    name='gender' label="Gender: "
+                    component={UserInfoField} type="text" />
+                <Field
+                    name='age' label="Age: "
+                    component={UserInfoField} type="number"
+                    validate={[minValue1, maxValue200]}
+                />
+                <Field
+                    name='password' label="Password: "
+                    component={UserInfoField} type="password"
+                    validate={[required, minLength3]} />
+                <Field
+                    name='repeat' label="Repeat: "
+                    component={UserInfoField} type="password"
+                    validate={[passwordsMatch]} />
+                <div className="form-btn-group">
+                    <button type="button" disabled={pristine || submitting}
+                        onClick={reset} className="form-btn-reset"> Reset
                 </button>
 
-            <button type="submit" disabled={!valid || submitting}>
-                Submit
+                    <button type="submit" className="form-btn-submit"
+                        disabled={!valid || submitting}>
+                        Submit
             </button>
-        </form>
+                </div>
+                {userInfoStatus.error ? <span>Error: {userInfoStatus.error.message}</span> : undefined}
+                {postStatus.error ? <span>{postStatus.error.message}</span> : undefined}
+            </form>
+        </div>
     )
 }
 

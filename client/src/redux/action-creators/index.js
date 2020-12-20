@@ -1,10 +1,10 @@
 import axios from 'axios';
 /****************GET USERS LIST***************************/
 
-export const getUsers = (page, keyword, order) => async dispatch => {
+export const getUsers = (page, limit, keyword, order) => async dispatch => {
     dispatch({ type: 'FETCH_USERS_START' });
     try {
-        const res = await axios.get(`http://localhost:4000/api/usermanagement/users/${page}/7/?keyword=${keyword}&order=${order}`);
+        const res = await axios.get(`http://localhost:4000/api/usermanagement/users/${page}/${limit}/?keyword=${keyword}&order=${order}`);
         dispatch({ type: 'FETCH_USERS_SUCCESS', payload: res.data });
     } catch (e) {
         dispatch({ type: 'FETCH_USERS_FAIL', error: e });
@@ -79,3 +79,12 @@ export const goToPrevPage = () => {
         type: 'PREV_PAGE',
     }
 };
+
+/*****************Change limit**************************/
+
+export const setLimit = (num) => {
+    return {
+        type: 'SET_LIMIT',
+        payload: num,
+    }
+}

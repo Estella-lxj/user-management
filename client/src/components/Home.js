@@ -5,41 +5,47 @@ import PageBtn from './PageBtn';
 import * as actions from '../redux/action-creators';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import './Home.css';
+
 
 const Home = (props) => {
 
     const { users, deleteStatus } = props;
 
     return (
-        <div>
-            <div>
-                <span >User</span>
-                <span>
-                    {users.isFetching ? <img style={{ height: "2rem" }} src="img/loader.gif" alt="loader" /> : undefined}
-                    {users.error ? <div>Error: {users.error.message}</div> : undefined}
-                    {deleteStatus.error ? <div>{deleteStatus.error.message}</div> : undefined}
-                </span>
+        <div className="home-page-container">
+            <div className="home-page-header">
+                <h1 >USERS</h1>
+                {users.isFetching ? <img src="img/loader.gif" alt="loader" /> : undefined}
             </div>
+            <div>
+                <SearchBar
+                    keyword={props.keyword}
+                    setKeyword={props.setKeyword}
+                />
+                <UserTable
+                    users={users}
+                    getUsers={props.getUsers}
+                    page={props.page}
+                    limit={props.limit}
+                    setLimit={props.setLimit}
+                    keyword={props.keyword}
+                    order={props.order}
+                    setOrder={props.setOrder}
+                    deleteUser={props.deleteUser}
+                />
+                <PageBtn
+                    users={props.users}
+                    limit={props.limit}
+                    setLimit={props.setLimit}
+                    goToNextPage={props.goToNextPage}
+                    goToPrevPage={props.goToPrevPage}
+                />
 
-            <SearchBar
-                keyword={props.keyword}
-                setKeyword={props.setKeyword}
-            />
-            <UserTable
-                users={users}
-                getUsers={props.getUsers}
-                page={props.page}
-                keyword={props.keyword}
-                order={props.order}
-                setOrder={props.setOrder}
-                deleteUser={props.deleteUser}
-            />
-            <PageBtn
-                users={props.users}
-                goToNextPage={props.goToNextPage}
-                goToPrevPage={props.goToPrevPage}
-            />
-            <Link to="/user/new" ><button>Create New User</button></Link>
+                {users.error ? <div>Error: {users.error.message}</div> : undefined}
+                {deleteStatus.error ? <div>{deleteStatus.error.message}</div> : undefined}
+                <p className="mark">© 2020 - Developed with ❤️ Estella</p>
+            </div>
         </div>
     )
 }
@@ -48,6 +54,7 @@ const mapStateToProps = state => {
     return {
         users: state.users,
         page: state.page,
+        limit: state.limit,
         keyword: state.keyword,
         order: state.order,
         deleteStatus: state.deleteStatus,
@@ -56,11 +63,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getUsers: (page, keyword, order) => dispatch(actions.getUsers(page, keyword, order)),
+        getUsers: (page, limit, keyword, order) => dispatch(actions.getUsers(page, limit, keyword, order)),
         goToNextPage: () => dispatch(actions.goToNextPage()),
         goToPrevPage: () => dispatch(actions.goToPrevPage()),
         setKeyword: (text) => dispatch(actions.setKeyword(text)),
         setOrder: (text) => dispatch(actions.setOrder(text)),
+        setLimit: (num) => dispatch(actions.setLimit(num)),
         deleteUser: (id, history) => dispatch(actions.deleteUser(id, history)),
     }
 }

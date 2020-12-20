@@ -3,8 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import UserInfoForm from './components/UserInfoForm';
 
 
-function App(props) {
-
+function App() {
 
   return (
     <BrowserRouter>

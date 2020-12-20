@@ -1,13 +1,14 @@
 import { withRouter } from 'react-router-dom';
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 const TableRow = props => {
 
-    const { item, deleteUser, getUsers, page, history, keyword, order } = props;
+    const { item, deleteUser, getUsers, page, limit, history, keyword, order } = props;
     const { _id, firstName, lastName, gender, age } = item;
 
     const handleDelete = (_id) => {
         deleteUser(_id);
-        getUsers(page, keyword, order);
+        getUsers(page, limit, keyword, order);
     }
     const handleEdit = (_id) => {
         history.push(`/user/${_id}`)
@@ -17,11 +18,11 @@ const TableRow = props => {
         <tr>
             <td>
                 <button onClick={() => handleEdit(_id)}>
-                    Edit</button>
+                    <FiEdit2 /></button>
             </td>
             <td>
                 <button onClick={() => handleDelete(_id)}>
-                    Delete</button>
+                    <FiTrash2 /></button>
             </td>
             <td>{firstName}</td>
             <td>{lastName}</td>

@@ -3,7 +3,7 @@ const UserInfoField = ({ label, input, type, meta: { touched, error, warning } }
         <div className="input-row">
             <label>{label}</label><br />
             <input {...input} type={type} />
-            {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+            {touched && ((error && <div className="form-error-warning">{error}</div>) || (warning && <span>{warning}</span>))}
         </div>
     )
 }

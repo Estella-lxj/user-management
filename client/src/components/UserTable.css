@@ -1,0 +1,49 @@
+.table-container {
+  margin: 1rem 3rem;
+  min-width: 20rem;
+  min-height: 33rem;
+}
+.user-table {
+  border-collapse: collapse;
+  font-size: 1rem;
+  min-width: 20rem;
+  width: 100%;
+  font-weight: 300;
+}
+
+.user-table thead tr {
+  background-color: #006c84;
+  text-align: left;
+  padding: 0.8rem 1rem;
+  position: relative;
+}
+
+.user-table thead tr button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #e2e8e4;
+  font-size: 0.9rem;
+  padding: 0rem 0rem;
+  text-transform: uppercase;
+}
+
+.user-table tbody tr button {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.8rem 1rem;
+}
+
+.user-table tbody tr:nth-of-type(even) {
+  background-color: rgba(255, 255, 255, 0.315);
+}
+
+.user-table tbody tr:last-of-type {
+  border-bottom: 2px solid #006c84;
+}
