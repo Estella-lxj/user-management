@@ -3,12 +3,11 @@ import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 const TableRow = props => {
 
-    const { item, deleteUser, getUsers, page, limit, history, keyword, order } = props;
+    const { item, deleteUser, page, limit, history, keyword, order } = props;
     const { _id, firstName, lastName, gender, age } = item;
 
     const handleDelete = (_id) => {
-        deleteUser(_id);
-        getUsers(page, limit, keyword, order);
+        deleteUser(_id, page, limit, keyword, order);
     }
     const handleEdit = (_id) => {
         history.push(`/user/${_id}`)

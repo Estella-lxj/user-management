@@ -2,19 +2,23 @@ import { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import UserInfoField from './UserInfoField';
 import { connect } from 'react-redux';
-import { postUser, getUserInfo } from '../redux/action-creators'
+import { postUser, getUserInfo, cleanUserInfo } from '../redux/action-creators'
 import './UserInfoForm.css';
 
 const UserEdit = props => {
-    const { match, history, handleSubmit, pristine, reset, submitting,
-        valid, getUserInfo, postUser, userInfoStatus, postStatus } = props;
-    //
+    const { page, limit, keyword, order, match, history, handleSubmit, pristine, reset, submitting,
+        valid, getUserInfo, postUser, userInfo, cleanUserInfo } = props;
+
     useEffect((() => {
-        getUserInfo(match.params._id)
+        if (match.params._id !== undefined) getUserInfo(match.params._id)
+
+        return () => {
+            cleanUserInfo();
+        }
     }), [])
 
     const submitForm = (values) => {
-        postUser(values, history)
+        postUser(values, history, page, limit, order, keyword);
     }
 
 
@@ -25,8 +29,7 @@ const UserEdit = props => {
                     {match.path === "/user/new"
                         ? <h1>Create New User</h1>
                         : <h1>Edit User</h1>}
-                    {userInfoStatus.isFetching ? <img src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
-                    {postStatus.isPosting ? <img src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
+                    {userInfo.isFetching ? <img src="https://static.wixstatic.com/media/43250d_b709539d6a7c425e852332cbfa053f42~mv2.gif" alt="loader" /> : undefined}
                 </div>
                 <Field
                     name='firstName' label="First Name: "
@@ -63,8 +66,7 @@ const UserEdit = props => {
                         Submit
             </button>
                 </div>
-                {userInfoStatus.error ? <span>Error: {userInfoStatus.error.message}</span> : undefined}
-                {postStatus.error ? <span>{postStatus.error.message}</span> : undefined}
+                {userInfo.error ? <span>Error: {userInfo.error.message}</span> : undefined}
             </form>
         </div>
     )
@@ -80,18 +82,26 @@ const mapStateToProps = (state, props) => {
     if (props.match.path === "/user/new") {
         return {
             initialValues: null,
-            userInfoStatus: state.userInfo,
-            postStatus: state.postStatus,
+            userInfo: state.userInfo,
+            users: state.users,
+            page: state.page,
+            limit: state.limit,
+            keyword: state.keyword,
+            order: state.order,
         }
     }
     return {
         initialValues: state.userInfo.data,
-        userInfoStatus: state.userInfo,
-        postStatus: state.postStatus,
+        userInfo: state.userInfo,
+        users: state.users,
+        page: state.page,
+        limit: state.limit,
+        keyword: state.keyword,
+        order: state.order,
     }
 }
 
-UserInfoForm = connect(mapStateToProps, { postUser, getUserInfo })(UserInfoForm)
+UserInfoForm = connect(mapStateToProps, { postUser, getUserInfo, cleanUserInfo })(UserInfoForm)
 
 export default UserInfoForm;
 

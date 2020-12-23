@@ -24,6 +24,8 @@ const userInfo = (state = initialState, action) => {
                 error: null,
                 data: action.payload,
             }
+        case ('CLEAN_USER_INFO'):
+            return initialState;
         default:
             return state;
     }

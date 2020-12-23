@@ -1,5 +1,5 @@
-import Home from './components/Home';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './components/Home';
 import UserInfoForm from './components/UserInfoForm';
 
 
@@ -16,6 +16,6 @@ function App() {
   );
 }
 
-export default (App);
+export default App;
 
 

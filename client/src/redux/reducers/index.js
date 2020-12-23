@@ -5,8 +5,6 @@ import limit from './limit';
 import userInfo from './userInfo';
 import keyword from './keyword';
 import order from './order';
-import postStatus from './postStatus';
-import deleteStatus from './deleteStatus';
 import { reducer as formReducer } from 'redux-form';
 
 const reducers = combineReducers({
@@ -16,8 +14,6 @@ const reducers = combineReducers({
     keyword,
     order,
     userInfo,
-    postStatus,
-    deleteStatus,
     form: formReducer,
 });
 

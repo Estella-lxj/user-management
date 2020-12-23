@@ -7,9 +7,10 @@ const dotenv = require('dotenv').config()
 //Create application objects
 const app = express();
 
-//System middleware
+// System middleware
 app.use(express.json()); //Used body to JSON 
 app.use(express.urlencoded({ extended: true })) //Parse URL to JSON
+
 
 //Third party middlewares
 const cors = require('cors')
@@ -25,6 +26,8 @@ const userRouter = require('./controllers/userRouter');
 
 //Use a defined router
 app.use('/api/usermanagement', userRouter);
+
+
 
 //Define port and create server
 const PORT = process.env.PORT || 4000;
