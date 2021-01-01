@@ -2,7 +2,8 @@
 const express = require("express");
 
 //Configure enviroument variables
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config({ path: '.env' })
+//require('dotenv').config({ path: 'ENV_FILENAME' });
 
 //Create application objects
 const app = express();

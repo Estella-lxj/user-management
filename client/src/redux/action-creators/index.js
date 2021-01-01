@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getUsers = (page, limit, keyword, order) => {
     return dispatch => {
         dispatch({ type: 'FETCH_USERS_START' });
-        axios.get(`http://localhost:4000/api/usermanagement/users/?page=${page}&limit=${limit}&keyword=${keyword}&order=${order}`)
+        axios.get(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/users/?page=${page}&limit=${limit}&keyword=${keyword}&order=${order}`)
             .then(res => dispatch({ type: 'FETCH_USERS_SUCCESS', payload: res.data }))
             .catch(e => dispatch({ type: 'FETCH_USERS_FAIL', error: e }))
     }
@@ -16,7 +16,7 @@ export const getUsers = (page, limit, keyword, order) => {
 export const deleteUser = (_id, page, limit, keyword, order) => {
     return dispatch => {
         dispatch({ type: 'FETCH_USERS_START' });
-        axios.delete(`http://localhost:4000/api/usermanagement/users/?_id=${_id}&page=${page}&limit=${limit}&keyword=${keyword}&order=${order}`)
+        axios.delete(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/users/?_id=${_id}&page=${page}&limit=${limit}&keyword=${keyword}&order=${order}`)
             .then(res => dispatch({ type: 'FETCH_USERS_SUCCESS', payload: res.data }))
             .catch(e => dispatch({ type: 'FETCH_USERS_FAIL', error: e }))
     }
@@ -27,7 +27,7 @@ export const deleteUser = (_id, page, limit, keyword, order) => {
 export const postUser = (info, history) => {
     return dispatch => {
         dispatch({ type: 'FETCH_USERS_START' });
-        axios.post(`http://localhost:4000/api/usermanagement/users/`, info)
+        axios.post(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/users/`, info)
             .then(
                 history.push('/')
             )
@@ -52,7 +52,7 @@ export const postUser = (info, history) => {
 export const getUserInfo = _id => {
     return dispatch => {
         dispatch({ type: 'FETCH_USER_INFO_START' });
-        axios.get(`http://localhost:4000/api/usermanagement/user/${_id}`)
+        axios.get(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/user/${_id}`)
             .then(res => dispatch({ type: 'FETCH_USER_INFO_SUCCESS', payload: res.data }))
             .catch(e => dispatch({ type: 'FETCH_USER_INFO_FAIL', error: e }))
     }
