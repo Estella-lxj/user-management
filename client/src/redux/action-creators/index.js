@@ -24,27 +24,26 @@ export const deleteUser = (_id, page, limit, keyword, order) => {
 
 /*****************CREATE AND UPDATE USER******************/
 
-export const postUser = (info, history) => {
-    return dispatch => {
-        dispatch({ type: 'FETCH_USERS_START' });
-        axios.post(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/users/`, info)
-            .then(
-                history.push('/')
-            )
-            .catch(e => dispatch({ type: 'FETCH_USERS_FAIL', error: e }))
-    }
-}
-
-// export const postUser = (info, history, page, limit, order, keyword) => async dispatch => {
-//     dispatch({ type: 'FETCH_USERS_START' });
-//     try {
-//         const res = await axios.post(`http://localhost:4000/api/usermanagement/users/?page=${page}&limit=${limit}&keyword=${keyword}&order=${order}`, info);
-//         dispatch({ type: 'FETCH_USERS_SUCCESS', payload: [] })
-//         history.push('/')
-//     } catch (e) {
-//         dispatch({ type: 'FETCH_USERS_FAIL', error: e })
+// export const postUser = (info, history) => {
+//     return dispatch => {
+//         dispatch({ type: 'FETCH_USERS_START' });
+//         axios.post(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/users/`, info)
+//             .then(res => dispatch({ type: 'FETCH_USERS_SUCCESS' }))
+//             .then(history.push('/'))
+//             .catch(e => dispatch({ type: 'FETCH_USERS_FAIL', error: e }))
 //     }
-// };
+// }
+
+export const postUser = (info, history, page, limit, order, keyword) => async dispatch => {
+    dispatch({ type: 'FETCH_USERS_START' });
+    try {
+        const res = await axios.post(`https://user-management-api-nodejs.herokuapp.com/api/usermanagement/users/?page=${page}&limit=${limit}&keyword=${keyword}&order=${order}`, info);
+        dispatch({ type: 'FETCH_USERS_SUCCESS', payload: res.data })
+        history.push('/')
+    } catch (e) {
+        dispatch({ type: 'FETCH_USERS_FAIL', error: e })
+    }
+};
 
 
 /*****************GET ONE USER INFO********************/
